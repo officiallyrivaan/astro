@@ -1,0 +1,196 @@
+:root {
+  --bg: #07080d;
+  --bg-soft: #0e0f17;
+  --ink: #eef0f4;
+  --ink-dim: #9a9eac;
+  --amber: #ffb84d;
+  --cyan: #5fe3d1;
+  --line: rgba(255,255,255,.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* faint star noise, not a gradient blob - keeps it from looking like every other ai hero */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 65%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 55% 45%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 10% 90%, #fff, transparent);
+  background-size: 600px 600px;
+  opacity: .35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.brand .dot { color: var(--amber); }
+
+.datepicker {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-size: .85rem;
+  padding: .5rem .7rem;
+  border-radius: 6px;
+  color-scheme: dark;
+}
+.datepicker:focus { outline: 1px solid var(--cyan); }
+
+/* loading state */
+.state-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 5rem 0;
+  color: var(--ink-dim);
+}
+.orbit {
+  width: 54px; height: 54px;
+  border: 1px dashed var(--line);
+  border-radius: 50%;
+  position: relative;
+  animation: spin 3s linear infinite;
+}
+.planet {
+  width: 9px; height: 9px;
+  background: var(--amber);
+  border-radius: 50%;
+  position: absolute;
+  top: -4px; left: 50%;
+  margin-left: -4.5px;
+  box-shadow: 0 0 8px var(--amber);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* error state */
+.state-error {
+  padding: 3rem 1.5rem;
+  border: 1px solid rgba(255,107,107,.3);
+  background: rgba(255,107,107,.05);
+  border-radius: 10px;
+}
+.error-title {
+  font-family: 'Orbitron', sans-serif;
+  color: #ff6b6b;
+  margin: 0 0 .5rem;
+  text-transform: uppercase;
+  font-size: .9rem;
+  letter-spacing: .05em;
+}
+.error-message { margin: 0; color: var(--ink-dim); font-size: .9rem; }
+
+/* the card */
+.card {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.media-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  background: #000;
+}
+.media-frame {
+  aspect-ratio: 16/9;
+  height: auto;
+  border: 0;
+}
+
+.info { display: grid; gap: .85rem; }
+
+.date {
+  margin: 0;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.15;
+  margin: 0;
+  max-width: 22ch;
+}
+
+.explanation {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: .95rem;
+  line-height: 1.7;
+  max-width: 65ch;
+}
+
+.copyright {
+  margin: 0;
+  font-size: .75rem;
+  color: var(--ink-dim);
+  opacity: .7;
+}
+
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: .75rem;
+  color: var(--ink-dim);
+  text-align: center;
+  letter-spacing: .05em;
+}
+
+@media (max-width: 600px) {
+  .topbar { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .datepicker { width: 100%; }
+}
