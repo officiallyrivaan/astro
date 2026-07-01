@@ -21,7 +21,7 @@ function renderShell(selectedDate) {
   app.innerHTML = `
     <div class="page">
       <header class="topbar">
-        <span class="brand">astronomy<span class="dot">.</span></span>
+        <span class="brand">today in space<span class="dot">.</span></span>
         <input type="date" id="datepicker" class="datepicker"
           value="${selectedDate}" max="${todayISO()}" min="1995-06-16" />
       </header>
