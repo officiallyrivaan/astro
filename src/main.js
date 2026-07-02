@@ -26,18 +26,31 @@ function randomDate() {
 }
 
 function renderShell(selectedDate) {
+  const now = new Date();
+  const issueLabel = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
   app.innerHTML = `
     <div class="page">
-      <header class="topbar">
+      <header class="masthead">
+        <div class="masthead-top">
+          <span class="issue-info">nasa apod — daily edition</span>
+          <span class="issue-info">${issueLabel}</span>
+        </div>
         <span class="brand">today in space<span class="dot">.</span></span>
-        <div class="controls">
-          <button id="randombtn" class="random-btn">random day</button>
-          <input type="date" id="datepicker" class="datepicker"
-            value="${selectedDate}" max="${todayISO()}" min="1995-06-16" />
+        <div class="topbar">
+          <span class="issue-info">astronomy picture of the day</span>
+          <div class="controls">
+            <button id="randombtn" class="random-btn">random day</button>
+            <input type="date" id="datepicker" class="datepicker"
+              value="${selectedDate}" max="${todayISO()}" min="1995-06-16" />
+          </div>
         </div>
       </header>
-      <main id="content" class="content"></main>
-      <footer class="footer">data from nasa apod api</footer>
+      <main id="content"></main>
+      <footer class="footer">
+        <span>data — nasa apod api</span>
+        <span>est. 1995</span>
+      </footer>
     </div>
   `;
 
@@ -59,7 +72,7 @@ function renderLoading(date) {
   const label = isToday ? "today's sky" : formatDate(date);
   content.innerHTML = `
     <div class="state-loading">
-      <div class="orbit"><div class="planet"></div></div>
+      <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
       <p>fetching ${label}...</p>
     </div>
   `;
